@@ -18,7 +18,7 @@ Html and Css and Js
 
 ## Getting Started
 
-git clone https://github.com/heintayzar-hm/awesomebooks.git
+git clone https://github.com/heintayzar-hm/to-do-list.git
 
 
 To get a local copy up and running follow these simple example steps.
