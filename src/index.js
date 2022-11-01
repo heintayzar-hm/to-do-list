@@ -23,4 +23,3 @@ const array = [
 
 const tasks = new ListsClass(array);
 tasks.display();
-tasks.addList();

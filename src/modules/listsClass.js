@@ -33,7 +33,7 @@ export default class {
   updateChecker = (bool, id) => {
     this.lists.forEach((list) => {
       if (list.index.toString() === id) {
-        list.completed = bool;
+        list.com = bool;
       }
     });
   }
@@ -47,49 +47,6 @@ export default class {
         this.checked(list);
         this.updateChecker(list.children[0].checked, list.id);
       });
-      const createInput = (val) => {
-        const input = document.createElement('input');
-        input.classList.add('remove-box');
-        input.setAttribute('value', val);
-        return input;
-      };
-      list.children[1].addEventListener('click', (e) => {
-        e.preventDefault();
-        const input = createInput(e.target.innerHTML);
-        list.replaceChild(input, list.children[1]);
-        list.children[1].addEventListener('focusout', (event) => {
-          this.updateList(e.target.innerHTML, event.target.value, list.id);
-          this.display();
-        });
-      });
-    });
-  }
-
-  addList = () => {
-    const newList = document.getElementById('add-list');
-    newList.addEventListener('focusout', (e) => {
-      e.preventDefault();
-      const objList = {
-        description: newList.value,
-        completed: false,
-        index: this.lists.length + 1,
-      };
-      this.lists.push(objList);
-      this.display();
-      newList.value = '';
-    });
-  }
-
-  reset = () => {
-    this.lists.length = [];
-    this.display();
-  }
-
-  updateList = (oldVal, newVal, id) => {
-    this.lists.forEach((list) => {
-      if (list.description === oldVal && list.index.toString() === id) {
-        list.description = newVal;
-      }
     });
   }
 }
