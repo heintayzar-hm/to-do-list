@@ -42,15 +42,6 @@ export default class {
     this.listsEvents();
     // for css
     this.removeTasksDisplay();
-
-    // delete all lists
-    const reset = document.getElementById('reset');
-    reset.addEventListener('click', (e) => {
-      e.preventDefault();
-      this.reset();
-      // for css
-      this.removeTasksDisplay();
-    });
   }
 
   // events for adding removing updating deleting lists
@@ -66,8 +57,6 @@ export default class {
         e.preventDefault();
         // for css checked
         this.checked(list);
-        // for update to local
-        this.updateChecker(list.children[0].checked, list.id);
       });
       // update for desciption
       // create input when in update mode
@@ -109,16 +98,6 @@ export default class {
       list.children[1].classList.remove('strike');
     }
   };
-
-  // update the checked
-  updateChecker = (bool, id) => {
-    this.lists.forEach((list) => {
-      if (list.index.toString() === id) {
-        list.completed = bool;
-        this.set();
-      }
-    });
-  }
 
   // for adding new lists fired at intial no need in event fired
   addList = () => {
