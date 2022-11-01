@@ -34,11 +34,6 @@ npm run dev
 Free feel to use the project as you like
 
 
-### Run tests
-You can use vscode extension or just run the index file. (I have yet to set up local server)
-
-
-
 ### Deployment
 <!-- <a href="https://heintayzar-hm.github.io/capstone/public/pages/">Watch online</a> -->
 ## Contact me
