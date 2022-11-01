@@ -3,23 +3,6 @@ import _ from 'lodash';
 import ListsClass from './modules/listsClass.js';
 import './styles.css';
 
-const array = [
-  {
-    description: 'Use best way to eat',
-    completed: true,
-    index: 1,
-  },
-  {
-    description: 'Use best way to sleep',
-    completed: false,
-    index: 2,
-  },
-  {
-    description: 'Use best way to stop',
-    completed: false,
-    index: 3,
-  },
-];
-
-const tasks = new ListsClass(array);
-tasks.display();
+const localItems = JSON.parse(localStorage.getItem('lists')) || [];
+const tasks = new ListsClass(localItems);
+tasks.intialDisplay();

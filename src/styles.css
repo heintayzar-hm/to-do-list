@@ -85,3 +85,21 @@ h1 {
 .remove-box:focus {
   outline: none;
 }
+
+.icon #menu {
+  display: inline;
+}
+
+.icon #del {
+  display: none;
+}
+
+.icon:hover #del {
+  display: inline;
+  position: relative;
+  right: 7px;
+}
+
+.icon:hover #menu {
+  display: none;
+}
