@@ -35,7 +35,7 @@ Free feel to use the project as you like
 
 
 ### Deployment
-<!-- <a href="https://heintayzar-hm.github.io/capstone/public/pages/">Watch online</a> -->
+< <a href="https://github.com/heintayzar-hm/to-do-list/dist">Watch online</a> 
 ## Contact me
 
 <a href="https://github.com/heintayzar-hm/">Github</a>
