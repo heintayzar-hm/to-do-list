@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import _ from 'lodash';
 import ListsClass from './modules/listsClass.js';
 import './styles.css';
 
