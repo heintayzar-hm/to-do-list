@@ -1,5 +1,8 @@
-export default class {
+import Interaction from './Interaction.js';
+
+export default class extends Interaction {
   constructor(lists) {
+    super();
     this.lists = lists || [];
   }
 
@@ -21,8 +24,8 @@ export default class {
   }
 
   // get a list in html
-  getList = ({ index, completed, description }) => `<li class="lists" id="${index}">
-    <input name='checkboxes' type="checkbox" ${completed ? 'checked' : 'false'}>
+  getList = ({ index, completed, description }) => `<li class="lists draggable pointer" draggable=true id="${index}">
+    <input class='checkbox' name='checkboxes' type="checkbox" ${completed ? 'checked' : 'false'}>
     <span class="description" >${description}</span>
     <div class='icon'>
     <i id='menu' class="fa-solid fa-ellipsis-vertical pointer"></i>
@@ -35,20 +38,26 @@ export default class {
     // for intial it is none
     document.getElementById('to-do-list').innerHTML = '';
     // loop the lists and show all
+    // sort the lists so that no errors found later
+    this.sortLists();
     this.lists.forEach((task) => {
       document.getElementById('to-do-list').innerHTML += this.getList(task);
     });
     // for the event like add, remove, update, delete lists
     this.listsEvents();
+    // for drag events
+    this.DragMainEvent();
     // for css
     this.removeTasksDisplay();
 
     // delete all lists
-    const reset = document.getElementById('reset');
-    reset.addEventListener('click', (e) => {
+    const resetCompleted = document.getElementById('reset');
+    resetCompleted.addEventListener('click', (e) => {
       e.preventDefault();
-      this.reset();
+      // interaction class methods
+      this.resetCompleted();
       // for css
+      // interaction class methods
       this.removeTasksDisplay();
     });
   }
@@ -65,8 +74,10 @@ export default class {
       list.children[0].addEventListener('change', (e) => {
         e.preventDefault();
         // for css checked
+        // interaction class methods
         this.checked(list);
         // for update to local
+        // interaction class methods
         this.updateChecker(list.children[0].checked, list.id);
       });
       // update for desciption
@@ -101,25 +112,6 @@ export default class {
     });
   }
 
-  // checked for css
-  checked = (list) => {
-    if (list.children[0].checked) {
-      list.children[1].classList.add('strike');
-    } else {
-      list.children[1].classList.remove('strike');
-    }
-  };
-
-  // update the checked
-  updateChecker = (bool, id) => {
-    this.lists.forEach((list) => {
-      if (list.index.toString() === id) {
-        list.completed = bool;
-        this.set();
-      }
-    });
-  }
-
   // for adding new lists fired at intial no need in event fired
   addList = () => {
     // get the input add section
@@ -143,26 +135,6 @@ export default class {
         newList.value = '';
       }
     });
-  }
-
-  // reset the whole lists
-  reset = () => {
-    // delete all
-    this.lists = [];
-    // in local
-    this.set();
-    this.display();
-  }
-
-  // for css
-  removeTasksDisplay = () => {
-    const reset = document.getElementById('reset');
-
-    if (this.lists.length === 0) {
-      reset.style.display = 'none';
-    } else {
-      reset.style.display = 'block';
-    }
   }
 
   // update the lists
@@ -191,8 +163,6 @@ export default class {
         this.lists.splice(i, 1);
         // sort the lists
         this.sortLists();
-        // local
-        this.set();
       }
     });
   }
@@ -202,5 +172,7 @@ export default class {
     this.lists.forEach((list, i) => {
       list.index = i + 1;
     });
+    // local
+    this.set();
   }
 }
