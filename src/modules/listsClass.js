@@ -102,7 +102,6 @@ export default class extends Interaction {
           list.children[1].addEventListener(eventlistener, (event) => {
             if (eventlistener === this.twoEvents[0] || event.key === 'Enter') {
               this.updateList(e.target.innerHTML, event.target.value, list.id);
-              this.display();
             }
           });
         });
@@ -112,7 +111,6 @@ export default class extends Interaction {
       list.children[2].addEventListener('click', (e) => {
         e.preventDefault();
         this.deleteLists(list.id);
-        this.display();
       });
     });
   }
@@ -162,6 +160,7 @@ export default class extends Interaction {
         this.set();
       }
     });
+    this.display();
   };
 
   // delete lists
@@ -174,6 +173,7 @@ export default class extends Interaction {
         this.sortLists();
       }
     });
+    this.display();
   }
 
   // sort the lists
