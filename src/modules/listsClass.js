@@ -4,6 +4,7 @@ export default class extends Interaction {
   constructor(lists) {
     super();
     this.lists = lists || [];
+    this.twoEvents = ['focusout', 'keypress'];
   }
 
   // get method
@@ -97,9 +98,12 @@ export default class extends Interaction {
         // replace the whole elements with input
         list.replaceChild(input, list.children[1]);
         // when focus out update the code
-        list.children[1].addEventListener('focusout', (event) => {
-          this.updateList(e.target.innerHTML, event.target.value, list.id);
-          this.display();
+        this.twoEvents.forEach((eventlistener) => {
+          list.children[1].addEventListener(eventlistener, (event) => {
+            if (eventlistener === this.twoEvents[0] || event.key === 'Enter') {
+              this.updateList(e.target.innerHTML, event.target.value, list.id);
+            }
+          });
         });
       });
 
@@ -107,7 +111,6 @@ export default class extends Interaction {
       list.children[2].addEventListener('click', (e) => {
         e.preventDefault();
         this.deleteLists(list.id);
-        this.display();
       });
     });
   }
@@ -117,23 +120,27 @@ export default class extends Interaction {
     // get the input add section
     const newList = document.getElementById('add-list');
     // when out the focus
-    newList.addEventListener('focusout', (e) => {
-      // as long as it is not null
-      if (!(newList.value === '' || newList.value === undefined || newList.value === null)) {
-        e.preventDefault();
-        //  new obj
-        const objList = {
-          description: newList.value,
-          completed: false,
-          index: this.lists.length + 1,
-        };
-        // add to lists
-        this.lists.push(objList);
-        // add to local
-        this.set();
-        this.display();
-        newList.value = '';
-      }
+    this.twoEvents.forEach((eventlistener) => {
+      newList.addEventListener(eventlistener, (e) => {
+        // as long as it is not null
+        if (eventlistener === this.twoEvents[0] || e.key === 'Enter') {
+          if (!(newList.value === '' || newList.value === undefined || newList.value === null)) {
+            e.preventDefault();
+            //  new obj
+            const objList = {
+              description: newList.value,
+              completed: false,
+              index: this.lists.length + 1,
+            };
+            // add to lists
+            this.lists.push(objList);
+            // add to local
+            this.set();
+            this.display();
+            newList.value = '';
+          }
+        }
+      });
     });
   }
 
@@ -153,6 +160,7 @@ export default class extends Interaction {
         this.set();
       }
     });
+    this.display();
   };
 
   // delete lists
@@ -165,6 +173,7 @@ export default class extends Interaction {
         this.sortLists();
       }
     });
+    this.display();
   }
 
   // sort the lists
