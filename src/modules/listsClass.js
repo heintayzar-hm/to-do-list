@@ -1,4 +1,5 @@
 import Interaction from './Interaction.js';
+import { encodeHTMLEntities } from './util.js';
 
 export default class extends Interaction {
   constructor(lists) {
@@ -25,9 +26,9 @@ export default class extends Interaction {
   }
 
   // get a list in html
-  getList = ({ index, completed, description }) => `<li class="lists draggable pointer" draggable=true id="${index}">
-    <input class='checkbox' name='checkboxes' type="checkbox" ${completed ? 'checked' : 'false'}>
-    <span class="description" >${description}</span>
+  getList = ({ index, completed, description }) => `<li class="lists draggable pointer" draggable=true id="${(index)}">
+    <input class='checkbox' name='checkboxes' type="checkbox" ${(completed) ? 'checked' : 'false'}>
+    <span class="description" >${encodeHTMLEntities(description)}</span>
     <div class='icon'>
     <i id='menu' class="fa-solid fa-ellipsis-vertical pointer"></i>
     <i id='del' class="fa-regular fa-trash-can pointer"></i>
